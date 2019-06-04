@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+
+=begin
+Assumptions:
+* The directory is named in pascal case
+* Each file is named a kebab case version of the dir name with a file ending
+=end
+
+def usage
+  puts 'USAGE: give path to a folder with files of the same name'
+end
+
+def is_upper? char
+  char != char.downcase
+end
+
+def to_kebab_from_pascal str
+  str.split(/(?=[A-Z])/).map(&:downcase).join('-')
+end
+
+def replace_name_in_file(file_name, old_name_new_name_tuple_arr)
+  text = File.read(file_name)
+
+  old_name_new_name_tuple_arr.each do |o, n|
+    text.gsub!(o, n)
+  end
+
+  File.open(file_name, "w") {|file| file.puts text }
+end
+
+def main
+  usage unless ARGV[0] && ARGV[1]
+  # todo
+  usage 'Please input a pascal case name' unless true
+
+  new_name = ARGV[0].strip
+  location = ARGV[1].strip
+
+  old_name = `basename #{location}`.strip
+
+  new_name_kebab = to_kebab_from_pascal(new_name).strip
+  original_file_name_kebab = to_kebab_from_pascal(old_name).strip
+
+  Dir.chdir location do
+    Dir.each_child('.') do |file_name|
+      replace_name_in_file(
+        file_name,
+        [
+          [old_name, new_name],
+          [original_file_name_kebab, new_name_kebab]
+        ]
+      )
+
+      new_file_name = file_name.sub(original_file_name_kebab, new_name_kebab)
+
+      FileUtils.mv(file_name, new_file_name)
+    end
+
+    puts Dir.children('.')
+  end
+
+  parts = location.split(File::Separator)
+  parts[-1] = new_name
+  new_location = parts.join(File::Separator)
+
+  puts new_location
+  FileUtils.mv(location, new_location)
+end
+
+main
