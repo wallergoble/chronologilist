@@ -1,5 +1,5 @@
-import React from "react";
-import { redirectToSpotifyOauth } from "../../utils/spotifyCredentials";
+import React from 'react'
+import { redirectToSpotifyOauth } from '../../utils/spotifyCredentials'
 
 const UnauthenticatedApp: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const UnauthenticatedApp: React.FC = () => {
         Make this button oook liks spotif
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default UnauthenticatedApp;
+export default UnauthenticatedApp

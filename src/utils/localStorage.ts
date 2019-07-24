@@ -27,3 +27,14 @@ export function getTokenExpiresIn(): string | null {
 export function setTokenExpiresIn(tokenExpiresIn: string) {
   window.localStorage.setItem(LocalStorageKeys.TokenExpiresIn, tokenExpiresIn);
 }
+
+export function clearSpotifyCredentials() {
+  // @ts-ignore
+  setToken(null);
+  // @ts-ignore
+  setTokenType(null);
+  // @ts-ignore
+  setTokenExpiresIn(null);
+
+  window.location.replace("http://localhost:3000");
+}
