@@ -13,7 +13,7 @@ const AlbumsForm: React.FC<AlbumsFormProps> = ({ albums, onSubmit }) => {
     albums.map(album => ({ ...album, checked: false })),
   )
 
-  let [playlistName, setPlaylistName] = useState('')
+  // let [playlistName, setPlaylistName] = useState('')
 
   return (
     <form onSubmit={preventDefaultAndCall(onSubmit, albums)}>
