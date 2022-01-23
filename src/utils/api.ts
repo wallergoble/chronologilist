@@ -92,7 +92,7 @@ export function createPlaylist(
 export function addTracksToPlaylist(playlistId: string, ...trackIds: string[]) {
   return api<SpotifyApi.AddTracksToPlaylistResponse>(
     `/playlists/${playlistId}/tracks`,
-    { body: trackIds },
+    { body: trackIds.flat() },
   )
 }
 export function getTracks(albumId: string) {
