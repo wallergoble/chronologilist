@@ -7,7 +7,7 @@ export interface SpotifyCredentials {
 }
 
 export function getCredentialsFromURL(): SpotifyCredentials | undefined {
-  let [_, valuePairs] = window.location.href.split('#')
+  let valuePairs = window.location.href.split('#')[1]
 
   if (valuePairs) {
     let credentials: SpotifyCredentials = valuePairs
